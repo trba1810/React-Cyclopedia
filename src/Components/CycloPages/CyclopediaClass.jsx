@@ -9,6 +9,8 @@ export default class CyclopediaClass extends React.Component {
       studentList: [],
       studentCount: 0,
       hideInstructor: false,
+      inputName: "",
+      inputFeedback: "",
     };
   }
   componentDidMount = async () => {
@@ -59,6 +61,25 @@ export default class CyclopediaClass extends React.Component {
             Phone: {this.state.instructor.phone} <br />
           </div>
         )}
+        <div className="p-3">
+          <span className="h4 text-success">Utisak</span> <br />
+          <input
+            type="text"
+            placeholder="Name..."
+            value={this.state.inputName}
+            onChange={(e) => {
+              this.setState({ inputName: e.target.value });
+            }}
+          ></input>
+          <br />
+          <textarea
+            placeholder="Utisak..."
+            value={this.state.inputFeedback}
+            onChange={(e) => {
+              this.setState({ inputFeedback: e.target.value });
+            }}
+          ></textarea>
+        </div>
         <div className="p-3">
           <span className="h4 text-success">Studenti</span> <br />
           <div>Broj studenata: {this.state.studentCount}</div>
