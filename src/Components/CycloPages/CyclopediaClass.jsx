@@ -45,9 +45,17 @@ export default class CyclopediaClass extends React.Component {
   };
 
   handleRemoveAllStudent = () => {
-    this.setState(() => {
+    this.setState((prevState) => {
       return {
         studentCount: 0,
+      };
+    });
+  };
+
+  handleToggleInstructor = () => {
+    this.setState((prevState) => {
+      return {
+        hideInstructor: !prevState.hideInstructor,
       };
     });
   };
@@ -55,9 +63,18 @@ export default class CyclopediaClass extends React.Component {
   render() {
     return (
       <div>
-        {this.state.instructor && (
-          <Instructor instructor={this.state.instructor} />
-        )}
+        <div className="p-3">
+          <span className="h4 text-success">Instruktor &nbsp;</span>
+          <i
+            className={`bi ${
+              this.state.hideInstructor ? "bi-toggle-off" : "bi-toggle-on"
+            } btn btn-success btn-sm`}
+            onClick={this.handleToggleInstructor}
+          ></i>
+          {!this.state.hideInstructor ? (
+            <Instructor instructor={this.state.instructor} />
+          ) : null}
+        </div>
         <div className="p-3">
           <span className="h4 text-success">Utisak</span> <br />
           <input
