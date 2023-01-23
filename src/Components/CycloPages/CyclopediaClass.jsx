@@ -29,12 +29,29 @@ export default class CyclopediaClass extends React.Component {
   componentWillUnmount() {
     console.log("unmount");
   }
+
+  handleAddStudent = () => {
+    this.setState((prevState) => {
+      return {
+        studentCount: prevState.studentCount + 1,
+      };
+    });
+  };
+
+  handleRemoveAllStudent = () => {
+    this.setState(() => {
+      return {
+        studentCount: 0,
+      };
+    });
+  };
+
   render() {
     return (
       <div>
         {this.state.instructor && (
           <div className="p-3">
-            <span className="h4 text-success">Instructor</span>
+            <span className="h4 text-success">Instruktor</span>
             <i className="bi bi-toggle-off btn btn-success btn-sm"></i>
             <br />
             Name:{this.state.instructor.name} <br />
@@ -42,6 +59,23 @@ export default class CyclopediaClass extends React.Component {
             Phone: {this.state.instructor.phone} <br />
           </div>
         )}
+        <div className="p-3">
+          <span className="h4 text-success">Studenti</span> <br />
+          <div>Broj studenata: {this.state.studentCount}</div>
+          <button
+            className="btn btn-success btn-sm"
+            onClick={this.handleAddStudent}
+          >
+            Dodaj studenta
+          </button>
+          &nbsp;
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={this.handleRemoveAllStudent}
+          >
+            Obrisi sve studente
+          </button>
+        </div>
       </div>
     );
   }
