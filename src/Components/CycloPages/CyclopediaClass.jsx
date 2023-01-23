@@ -29,9 +29,28 @@ export default class CyclopediaClass extends React.Component {
       });
     }
   };
-  componentDidUpdate() {
+  componentDidUpdate = async (previousProps, previousState) => {
     localStorage.setItem("cycloState", JSON.stringify(this.state));
-  }
+    if (previousState.studentCount < this.state.studentCount) {
+      const response = await getRandomUser();
+      this.setState((prevState) => {
+        return {
+          studentList: [
+            ...prevState.studentList,
+            {
+              name: response.data.first_name + " " + response.data.last_name,
+            },
+          ],
+        };
+      });
+    } else if (previousState.studentCount > this.state.studentCount) {
+      this.setState((prevState) => {
+        return {
+          studentList: [],
+        };
+      });
+    }
+  };
   componentWillUnmount() {
     console.log("unmount");
   }
@@ -71,7 +90,7 @@ export default class CyclopediaClass extends React.Component {
             } btn btn-success btn-sm`}
             onClick={this.handleToggleInstructor}
           ></i>
-          {!this.state.hideInstructor ? (
+          {!this.state.hideInstructor && this.state.instructor ? (
             <Instructor instructor={this.state.instructor} />
           ) : null}
         </div>
@@ -110,6 +129,13 @@ export default class CyclopediaClass extends React.Component {
           >
             Obrisi sve studente
           </button>
+          {this.state.studentList.map((student, index) => {
+            return (
+              <div className="text-white" key={index}>
+                -{student.name}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
