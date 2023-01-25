@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getRandomUser } from "../../Utility/api";
 import Instructor from "./Instructor";
 import { useState } from "react";
@@ -19,6 +19,23 @@ const CyclopediaFunc = () => {
   const [inputFeedback, setInputFeedback] = useState(() => {
     return "";
   });
+
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await getRandomUser();
+      setState((prevState) => {
+        return {
+          ...prevState,
+          instructor: {
+            name: response.data.first_name + " " + response.data.last_name,
+            email: response.data.email,
+            phone: response.data.phone_number,
+          },
+        };
+      });
+    };
+    getUser();
+  }, []);
 
   // this.state = JSON.parse(localStorage.getItem("cycloState")) || {
   //   instructor: undefined,
