@@ -34,8 +34,10 @@ const CyclopediaFunc = () => {
         };
       });
     };
-    getUser();
-  }, []);
+    if (!state.hideInstructor) {
+      getUser();
+    }
+  }, [state.hideInstructor]);
 
   const handleAddStudent = () => {
     setState((prevState) => {
