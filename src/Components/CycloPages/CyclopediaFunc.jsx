@@ -37,56 +37,6 @@ const CyclopediaFunc = () => {
     getUser();
   }, []);
 
-  // this.state = JSON.parse(localStorage.getItem("cycloState")) || {
-  //   instructor: undefined,
-  //   studentList: [],
-  //   studentCount: 0,
-  //   hideInstructor: false,
-  //   inputName: "",
-  //   inputFeedback: "",
-  // };
-
-  //   componentDidMount = async () => {
-  //     if (JSON.parse(localStorage.getItem("cycloState"))) {
-  //     } else {
-  //       const response = await getRandomUser();
-  //       this.setState(() => {
-  //         return {
-  //           instructor: {
-  //             name: response.data.first_name + " " + response.data.last_name,
-  //             email: response.data.email,
-  //             phone: response.data.phone_number,
-  //           },
-  //         };
-  //       });
-  //     }
-  //   };
-  //   componentDidUpdate = async (previousProps, previousState) => {
-  //     localStorage.setItem("cycloState", JSON.stringify(this.state));
-  //     if (previousState.studentCount < this.state.studentCount) {
-  //       const response = await getRandomUser();
-  //       this.setState((prevState) => {
-  //         return {
-  //           studentList: [
-  //             ...prevState.studentList,
-  //             {
-  //               name: response.data.first_name + " " + response.data.last_name,
-  //             },
-  //           ],
-  //         };
-  //       });
-  //     } else if (previousState.studentCount > this.state.studentCount) {
-  //       this.setState((prevState) => {
-  //         return {
-  //           studentList: [],
-  //         };
-  //       });
-  //     }
-  //   };
-  //   componentWillUnmount() {
-  //     console.log("unmount");
-  //   }
-
   const handleAddStudent = () => {
     setState((prevState) => {
       return {
