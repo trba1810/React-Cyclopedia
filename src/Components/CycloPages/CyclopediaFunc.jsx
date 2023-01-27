@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useId } from "react";
 import { getRandomUser } from "../../Utility/api";
 import Instructor from "./Instructor";
 import { useState } from "react";
@@ -14,6 +14,9 @@ const CyclopediaFunc = () => {
   });
 
   const totalRender = useRef(0);
+  const prevStudentCount = useRef(0);
+  const feedbackInputRef = useRef(null);
+  const Id = useId();
 
   const [inputName, setInputName] = useState(() => {
     return "";
@@ -58,14 +61,23 @@ const CyclopediaFunc = () => {
         };
       });
     };
-    if (state.studentList.length < state.studentCount) {
+    if (prevStudentCount.current < state.studentCount) {
       getUser();
-    } else if (state.studentList.length > state.studentCount) {
+    } else if (prevStudentCount.current > state.studentCount) {
       setState((prevState) => {
         return { ...prevState, studentList: [] };
       });
     }
     // eslint-disable-next-line
+  }, [state.studentCount]);
+
+  useEffect(() => {
+    feedbackInputRef.current.focus();
+    return () => {};
+  });
+
+  useEffect(() => {
+    prevStudentCount.current = state.studentCount;
   }, [state.studentCount]);
 
   const handleAddStudent = () => {
@@ -119,15 +131,22 @@ const CyclopediaFunc = () => {
           onChange={(e) => {
             setInputName(e.target.value);
           }}
-        ></input>
+          id={`${Id}-inputName`}
+        ></input>{" "}
+        <label htmlFor={`${Id}-inputName`}>Name Value:</label>
+        {inputName}
         <br />
         <textarea
           placeholder="Utisak..."
           value={inputFeedback}
+          ref={feedbackInputRef}
+          id={`${Id}-inputFeedback`}
           onChange={(e) => {
             setInputFeedback(e.target.value);
           }}
         ></textarea>
+        <label htmlFor={`${Id}-inputFeedback`}>Feedback Value:</label>
+        {inputFeedback}
       </div>
       <div className="p-3">
         <span className="h4 text-success">Studenti</span> <br />
