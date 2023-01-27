@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { getRandomUser } from "../../Utility/api";
 import Instructor from "./Instructor";
 import { useState } from "react";
@@ -13,11 +13,17 @@ const CyclopediaFunc = () => {
     };
   });
 
+  const totalRender = useRef(0);
+
   const [inputName, setInputName] = useState(() => {
     return "";
   });
   const [inputFeedback, setInputFeedback] = useState(() => {
     return "";
+  });
+
+  useEffect(() => {
+    totalRender.current = totalRender.current + 1;
   });
 
   useEffect(() => {
@@ -103,6 +109,7 @@ const CyclopediaFunc = () => {
           <Instructor instructor={state.instructor} />
         ) : null}
       </div>
+      <div className="p-3">Total Render: {totalRender.current}</div>
       <div className="p-3">
         <span className="h4 text-success">Utisak</span> <br />
         <input
